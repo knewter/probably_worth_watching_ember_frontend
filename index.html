@@ -1,31 +1,39 @@
 <html>
   <head>
     <title>ZOMG A WILD PAGE APPEARS</title>
+    <link rel="stylesheet" href="css/lib/foundation/stylesheets/foundation.css">
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <script type="text/x-handlebars" data-template-name="application">
-      <header>
-        <h1>Probably Worth Watching - Videos For Comrades!</h1>
-        <h2>Category: {{categoryName}}</h2>
-      </header>
-
-      <div>
-        {{outlet}}
+      <div class="row-fluid">
+        <header class="twelve columns">
+          <h1>Probably Worth Watching - Videos For Comrades!</h1>
+          <h2>Category: ruby</h2>
+        </header>
       </div>
 
-      <footer>
-        &copy;2013 Comrade Josh Adams
-      </footer>
+      <div class="row-fluid">
+        {{outlet}}
+      </div>
     </script>
     <script type="text/x-handlebars" data-template-name="index">
-      <div class="videos">
+      <div class="videos four columns">
         {{#each video in controller}}
-          <div class='video'>
+        <div class='video' {{action selectVideo video}}>
             <h5>{{video.title}}</h5>
             <div class='description'>{{video.description}}</div>
           </div>
         {{/each}}
+      </div>
+      <div class='video-details eight columns'>
+        {{#if selectedVideo}}
+          <h3>{{selectedVideo.title}}</h3>
+          <div class='embed'>
+            {{{selectedVideo.embed}}}
+          </div>
+          {{selectedVideo.description}}
+        {{/if}}
       </div>
     </script>
     <script type="text/javascript" src="js/libs/jquery-1.7.2.min.js"></script>

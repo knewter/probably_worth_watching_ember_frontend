@@ -22,14 +22,33 @@ PWW.IndexRoute = Ember.Route.extend({
 });
 
 PWW.IndexController = Ember.ArrayController.extend({
+  itemController: 'indexVideo',
+  selectedVideo: false,
+
+  selectVideo: function(video){
+    this.set('selectedVideo', video);
+  }
 });
 
-PWW.video = DS.Model.extend({
-  title: DS.attr('string'),
-  description: DS.attr('string'),
-  duration: DS.attr('number'),
-  url: DS.attr('string'),
-  embed: DS.attr('string')
+PWW.IndexVideoController = Ember.ObjectController.extend({
+});
+
+PWW.Video = Ember.Object.extend();
+PWW.Video.reopenClass({
+  allVideos: [],
+  find: function(){
+    $.ajax({
+      url: '/videos.json',
+      dataType: 'json',
+      context: this,
+      success: function(response){
+        response.forEach(function(vid){
+          this.allVideos.addObject(PWW.Video.create(vid));
+        }, this);
+      }
+    });
+    return this.allVideos;
+  }
 });
 
 PWW.initialize();

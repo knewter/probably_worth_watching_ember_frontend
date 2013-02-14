@@ -1,4 +1,13 @@
-body{
+.videos {
+  height: 90%;
+  overflow: scroll;
+}
+
+.videos .video:hover {
   background: #eee;
-  font-family: Ubuntu, sans-serif;
+}
+
+.videos .video {
+  padding: 1em;
+  cursor: pointer;
 }

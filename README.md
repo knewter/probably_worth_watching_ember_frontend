@@ -18,3 +18,4 @@ Then visit:
 Using ember, got it [here](https://raw.github.com/emberjs/ember.js/release-builds/ember-1.0.0-pre.4.js)
 Following guides [here](http://emberjs.com/guides/)
 
+Learning from Trek [here](http://trek.github.com/)
