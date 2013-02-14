@@ -1,16 +1,35 @@
-var App = Ember.Application.create();
+var PWW = Ember.Application.create();
 
-App.ApplicationController = Ember.Controller.extend();
-App.ApplicationView = Ember.View.extend({
-  templateName: 'application'
+// Maybe we're going to store stuff?
+PWW.Store = DS.Store.extend({
+  revision: 11,
+  adapter: DS.RESTAdapter.create()
 });
 
-App.Router = Ember.Router.extend({
-  root: Ember.Route.extend({
-    index: Ember.Route.extend({
-      route: '/'
-    })
-  })
-})
+// Routes
+PWW.Router.reopen({
+  location: 'history'
+});
 
-App.initialize();
+PWW.Router.map(function(match){
+  this.route('index', { path: '/' });
+});
+
+PWW.IndexRoute = Ember.Route.extend({
+  model: function() {
+    return PWW.Video.find();
+  }
+});
+
+PWW.IndexController = Ember.ArrayController.extend({
+});
+
+PWW.video = DS.Model.extend({
+  title: DS.attr('string'),
+  description: DS.attr('string'),
+  duration: DS.attr('number'),
+  url: DS.attr('string'),
+  embed: DS.attr('string')
+});
+
+PWW.initialize();
