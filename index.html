@@ -17,29 +17,33 @@
         {{outlet}}
       </div>
     </script>
-    <script type="text/x-handlebars" data-template-name="index">
+    <script type="text/x-handlebars" data-template-name="videos">
       <div class="videos four columns">
-        {{#each video in controller}}
-        <div class='video' {{action selectVideo video}}>
-            <h5>{{video.title}}</h5>
-            <h6>{{video.formattedDuration}}</h6>
-            <div class='description'>{{video.description}}</div>
-          </div>
-        {{/each}}
+        {{ partial "videosList" }}
       </div>
       <div class='video-details eight columns'>
-        {{#if selectedVideo}}
-          <h3>
-            <a {{bindAttr href="selectedVideo.url"}}>
-              {{selectedVideo.title}}
-            </a>
-          </h3>
-          <div class='embed'>
-            {{{selectedVideo.embed}}}
-          </div>
-          {{selectedVideo.description}}
-        {{/if}}
+        {{ outlet }}
       </div>
+    </script>
+    <script type="text/x-handlebars" data-template-name="videosList">
+      {{#each video in controller}}
+      <div class='video'>
+        <h5>{{#linkTo "video" video}}{{video.title}}{{/linkTo}}</h5>
+          <h6>{{video.formattedDuration}}</h6>
+          <div class='description'>{{video.description}}</div>
+        </div>
+      {{/each}}
+    </script>
+    <script type="text/x-handlebars" data-template-name="video">
+      <h3>
+        <a {{bindAttr href="url"}}>
+          {{title}}
+        </a>
+      </h3>
+      <div class='embed'>
+        {{{embed}}}
+      </div>
+      {{description}}
     </script>
     <script type="text/javascript" src="js/libs/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="js/libs/handlebars-1.0.0.beta.6.js"></script>

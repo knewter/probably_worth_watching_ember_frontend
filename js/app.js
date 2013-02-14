@@ -7,21 +7,25 @@ PWW.Store = DS.Store.extend({
 });
 
 // Routes
-PWW.Router.reopen({
-  location: 'history'
-});
-
 PWW.Router.map(function(match){
-  this.route('index', { path: '/' });
+  this.resource('videos', function(){
+    this.resource('video', { path: ':video_id' });
+  });
 });
 
 PWW.IndexRoute = Ember.Route.extend({
+  redirect: function() {
+    this.transitionTo('videos');
+  }
+});
+
+PWW.VideosRoute = Ember.Route.extend({
   model: function() {
     return PWW.Video.find();
   }
 });
 
-PWW.IndexController = Ember.ArrayController.extend({
+PWW.VideosController = Ember.ArrayController.extend({
   itemController: 'indexVideo',
   selectedVideo: false,
 
@@ -49,7 +53,14 @@ PWW.Video.reopenClass({
       context: this,
       success: function(response){
         response.forEach(function(vid){
-          this.allVideos.addObject(PWW.Video.create(vid));
+          this.allVideos.addObject(PWW.Video.create({
+            title: vid.title,
+            url: vid.url,
+            description: vid.description,
+            id: vid.url,
+            duration: vid.duration,
+            embed: vid.embed
+          }));
         }, this);
       }
     });
