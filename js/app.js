@@ -68,7 +68,7 @@ PWW.Video.reopenClass({
             title: vid.title,
             url: vid.url,
             description: vid.description,
-            id: vid.url,
+            id: encodeURIComponent(vid.url),
             duration: vid.duration,
             embed: vid.embed
           }));
@@ -83,6 +83,7 @@ PWW.Category = Ember.Object.extend();
 PWW.Category.reopenClass({
   allCategories: [],
   find: function(){
+    this.allCategories = [];
     $.ajax({
       url: '/categories.json',
       dataType: 'json',
