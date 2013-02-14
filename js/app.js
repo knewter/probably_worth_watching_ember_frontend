@@ -31,6 +31,12 @@ PWW.IndexController = Ember.ArrayController.extend({
 });
 
 PWW.IndexVideoController = Ember.ObjectController.extend({
+  formattedDuration: function(){
+    var duration = this.get('content.duration');
+    var minutes = Math.floor(duration / 60);
+    var seconds = duration % 60;
+    return minutes + ":" + _.pad(seconds, 2, '0');
+  }.property('content.formattedDuration')
 });
 
 PWW.Video = Ember.Object.extend();
