@@ -26,7 +26,7 @@
         <div class="categories twelve columns">
           <dl class="sub-nav">
             {{#each category in controller}}
-              {{#subnavTo "videos"}}<a href='#'>{{ category.name }}</a>{{/subnavTo}}
+              {{#subnavTo "category" category}}<a href='#'>{{ category.name }}</a>{{/subnavTo}}
             {{/each}}
           </dl>
         </div>
@@ -35,7 +35,7 @@
       {{ outlet }}
     </script>
 
-    <script type="text/x-handlebars" data-template-name="videos">
+    <script type="text/x-handlebars" data-template-name="category">
       <div class="row-fluid">
         <div class="videos four columns">
           {{ partial "videosList" }}
@@ -46,7 +46,7 @@
       </div>
     </script>
 
-    <script type="text/x-handlebars" data-template-name="videosList">
+    <script type="text/x-handlebars" data-template-name="_videosList">
       {{#each video in controller}}
         <div class='video' {{ action selectVideo video}}>
           <h5>{{video.title}}</h5>

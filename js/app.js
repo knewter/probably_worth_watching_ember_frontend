@@ -9,7 +9,7 @@ PWW.Store = DS.Store.extend({
 // Routes
 PWW.Router.map(function(match){
   this.resource('categories', function(){
-    this.resource('videos', function(){
+    this.resource('category', { path: ':category_id' }, function(){
       this.resource('video', { path: ':video_id' });
     });
   });
@@ -27,15 +27,26 @@ PWW.CategoriesRoute = Ember.Route.extend({
   }
 });
 
-PWW.CategoriesController = Ember.ArrayController.extend({});
-
-PWW.VideosRoute = Ember.Route.extend({
-  model: function() {
-    return PWW.Video.find();
+PWW.CategoryRoute = Ember.Route.extend({
+  model: function(params) {
+    var categories = PWW.Category.find();
+    var category = _.find(categories, function(cat){ cat.id == params.category_id })
+    // lol handwavy find the right video list based on category
+    return PWW.Video.find()
+  },
+  setupController: function(controller){
+    var categories = PWW.Category.find();
+    var category = _.find(categories, function(cat){ cat.id == params.category_id })
+    // lol handwavy find the right video list based on category
+    videos = PWW.Video.find();
+    controller.set('content', videos);
   }
 });
 
-PWW.VideosController = Ember.ArrayController.extend({
+
+PWW.CategoriesController = Ember.ArrayController.extend({});
+
+PWW.CategoryController = Ember.ArrayController.extend({
   itemController: 'indexVideo',
   selectedVideo: false,
 

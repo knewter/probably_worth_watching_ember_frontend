@@ -1,4 +1,4 @@
 [
-  { "name": "ruby" },
-  { "name": "javascript" }
+  { "id": "ruby", "name": "ruby" },
+  { "id": "javascript", "name": "javascript" }
 ]
