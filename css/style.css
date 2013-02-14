@@ -11,3 +11,7 @@
   padding: 1em;
   cursor: pointer;
 }
+
+.videos .video.selected {
+  background: #eee;
+}

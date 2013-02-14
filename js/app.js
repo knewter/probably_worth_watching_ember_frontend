@@ -51,7 +51,14 @@ PWW.IndexVideoController = Ember.ObjectController.extend({
     var minutes = Math.floor(duration / 60);
     var seconds = duration % 60;
     return minutes + ":" + _.pad(seconds, 2, '0');
-  }.property('content.formattedDuration')
+  }.property('content.duration'),
+  selected: function(){
+    if(this.target.get('selectedVideo')){
+      return this.target.get('selectedVideo').get('id') === this.get('id');
+    } else {
+      return false;
+    }
+  }.property('target.selectedVideo')
 });
 
 PWW.Video = Ember.Object.extend();
@@ -59,8 +66,8 @@ PWW.Video.reopenClass({
   allVideos: [],
   find: function(){
     $.ajax({
-      url: '/videos.json',
-      dataType: 'json',
+      url: 'http://localhost:4567/videos.json',
+      dataType: 'jsonp',
       context: this,
       success: function(response){
         response.forEach(function(vid){
@@ -73,6 +80,9 @@ PWW.Video.reopenClass({
             embed: vid.embed
           }));
         }, this);
+      },
+      error: function(xhr, errorCode, errorText){
+        console.log(errorCode, errorText);
       }
     });
     return this.allVideos;
