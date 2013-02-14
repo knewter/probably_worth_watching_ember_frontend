@@ -27,10 +27,9 @@
     </script>
     <script type="text/x-handlebars" data-template-name="videosList">
       {{#each video in controller}}
-      <div class='video'>
-        <h5>{{#linkTo "video" video}}{{video.title}}{{/linkTo}}</h5>
-          <h6>{{video.formattedDuration}}</h6>
-          <div class='description'>{{video.description}}</div>
+      <div class='video' {{ action selectVideo video}}>
+        <h5>{{video.title}}</h5>
+        <h6>{{video.formattedDuration}}</h6>
         </div>
       {{/each}}
     </script>

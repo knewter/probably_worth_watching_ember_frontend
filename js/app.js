@@ -31,6 +31,7 @@ PWW.VideosController = Ember.ArrayController.extend({
 
   selectVideo: function(video){
     this.set('selectedVideo', video);
+    this.target.router.transitionTo('video', video);
   }
 });
 
