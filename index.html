@@ -6,33 +6,55 @@
   </head>
   <body>
     <script type="text/x-handlebars" data-template-name="application">
-      <div class="row-fluid">
-        <header class="twelve columns">
-          <h1>Probably Worth Watching - Videos For Comrades!</h1>
-          <h2>Category: ruby</h2>
-        </header>
-      </div>
+      <div class="container">
+        <nav class="top-bar">
+          <ul>
+            <li class="name">
+              <h1>
+                <a href="#">Probably Worth Watching</a>
+              </h1>
+            </li>
+          </ul>
+        </nav>
 
-      <div class="row-fluid">
-        {{outlet}}
-      </div>
-    </script>
-    <script type="text/x-handlebars" data-template-name="videos">
-      <div class="videos four columns">
-        {{ partial "videosList" }}
-      </div>
-      <div class='video-details eight columns'>
         {{ outlet }}
       </div>
     </script>
+
+    <script type="text/x-handlebars" data-template-name="categories">
+      <div class="row-fluid">
+        <div class="categories twelve columns">
+          <dl class="sub-nav">
+            {{#each category in controller}}
+              {{#subnavTo "videos"}}<a href='#'>{{ category.name }}</a>{{/subnavTo}}
+            {{/each}}
+          </dl>
+        </div>
+      </div>
+
+      {{ outlet }}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="videos">
+      <div class="row-fluid">
+        <div class="videos four columns">
+          {{ partial "videosList" }}
+        </div>
+        <div class='video-details eight columns'>
+          {{ outlet }}
+        </div>
+      </div>
+    </script>
+
     <script type="text/x-handlebars" data-template-name="videosList">
       {{#each video in controller}}
-      <div class='video' {{ action selectVideo video}}>
-        <h5>{{video.title}}</h5>
-        <h6>{{video.formattedDuration}}</h6>
+        <div class='video' {{ action selectVideo video}}>
+          <h5>{{video.title}}</h5>
+          <h6>{{video.formattedDuration}}</h6>
         </div>
       {{/each}}
     </script>
+
     <script type="text/x-handlebars" data-template-name="video">
       <h3>
         <a {{bindAttr href="url"}}>
@@ -53,6 +75,7 @@
     <script type='text/javascript'>
       _.mixin(_.string.exports()); // lol race condition luck here guys
     </script>
+    <script type='text/javascript' src='js/templateHelpers.js'></script>
     <script type='text/javascript' src='js/app.js'></script>
   </body>
 </html>
