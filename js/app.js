@@ -95,7 +95,7 @@ PWW.Category.reopenClass({
   find: function(){
     this.allCategories = [];
     $.ajax({
-      url: '/categories.json',
+      url: './categories.json',
       dataType: 'json',
       context: this,
       success: function(response){
