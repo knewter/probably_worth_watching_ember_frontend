@@ -66,7 +66,7 @@ PWW.Video.reopenClass({
   allVideos: [],
   find: function(){
     $.ajax({
-      url: 'http://localhost:4567/videos.json',
+      url: 'http://probably-worth-watching-api.herokuapp.com/videos.json',
       dataType: 'jsonp',
       context: this,
       success: function(response){
